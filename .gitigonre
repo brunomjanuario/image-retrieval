@@ -1,0 +1,33 @@
+# Python-related
+
+**pycache**/
+_.pyc
+_.pyo
+_.pyd
+_.swp
+
+# Virtual environment
+
+venv/
+env/
+\*.env
+
+# Jupyter Notebook Checkpoints
+
+.ipynb_checkpoints/
+
+# MacOS
+
+.DS_Store
+
+# Data files (if you don't want to commit image data or embeddings)
+
+image_embeddings.csv
+_.jpg
+_.jpeg
+_.png
+_.gif
+
+# Logs
+
+\*.log
