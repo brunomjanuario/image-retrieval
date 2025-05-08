@@ -21,7 +21,7 @@ with open("image_embeddings.csv", "r") as f:
 image_embeddings = np.array(image_embeddings)
 
 # Get user prompt
-text_prompt = "Italian house"
+text_prompt = "children bedroom"
 
 # Encode text
 with torch.no_grad():

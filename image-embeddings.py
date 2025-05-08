@@ -9,24 +9,26 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
 # Path to your image folder
-image_folder = "images"  # ← put all your images here
+image_folder = "images"  
 output_csv = "image_embeddings.csv"
 
 # Prepare list to hold image vectors
 image_embeddings = []
 
-# Loop through images in the folder
-for filename in os.listdir(image_folder):
-    if filename.lower().endswith((".jpg", ".jpeg", ".png")):
-        filepath = os.path.join(image_folder, filename)
-        try:
-            image = preprocess(Image.open(filepath)).unsqueeze(0).to(device)
-            with torch.no_grad():
-                embedding = model.encode_image(image).squeeze().cpu().tolist()
-            image_embeddings.append([filename] + embedding)
-            print(f"✅ Processed: {filename}")
-        except Exception as e:
-            print(f"❌ Error with {filename}: {e}")
+# Loop through images in all subfolders
+for root, dirs, files in os.walk(image_folder):
+    for filename in files:
+        if filename.lower().endswith((".jpg", ".jpeg", ".png")):
+            filepath = os.path.join(root, filename)
+            try:
+                image = preprocess(Image.open(filepath)).unsqueeze(0).to(device)
+                with torch.no_grad():
+                    embedding = model.encode_image(image).squeeze().cpu().tolist()
+                relative_path = os.path.relpath(filepath, image_folder)
+                image_embeddings.append([relative_path] + embedding)
+                print(f"✅ Processed: {relative_path}")
+            except Exception as e:
+                print(f"❌ Error with {filename}: {e}")
 
 # Save to CSV
 header = ["image_id"] + [f"dim_{i}" for i in range(512)]
