@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify, send_file, abort, send_from_directory
+from flask_cors import CORS
 import retrieval
 import os
 
 IMAGE_FOLDER = 'images'
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/search', methods=['POST'])
 def search_images():

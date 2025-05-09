@@ -39,3 +39,5 @@ def embedding_images():
         writer.writerows(image_embeddings)
     
     print(f"\n🎉 Done! Embeddings saved to: {output_csv}")
+
+embedding_images()

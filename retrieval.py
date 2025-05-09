@@ -37,7 +37,7 @@ def retrieval_images(prompt):
     similarities = image_embeddings_norm @ text_embedding_norm
 
     # Get top match(es)
-    top_k = 3
+    top_k = 9
     top_indices = similarities.argsort()[-top_k:][::-1]
 
     results = []
